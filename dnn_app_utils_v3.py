@@ -84,9 +84,9 @@ def sigmoid_backward(dA, cache):
     return dZ
 
 
-def load_data():
+def load_data(pixels, numElements, percentageTrain):
 	# Read h5 datasets file
-	data = h5py.File('datasets/data_complete.h5', "r")
+	data = h5py.File('datasets/data_complete_' + str(pixels) + '.h5', "r")
 	
 	# Read dataset for NORMAL attribute elements
 	data_x_norm = np.array(data["X_norm"],np.ubyte)
@@ -109,7 +109,6 @@ def load_data():
 	shuffled_y = data_y[s]
 	
 	# Select a random subset of the dataset
-	numElements = 600
 	subSelector = np.arange(numElements)
 	np.random.shuffle(subSelector)
 
@@ -117,9 +116,9 @@ def load_data():
 	shuffled_x_subset = shuffled_x[subSelector]
 	shuffled_y_subset = shuffled_y[subSelector]
 	
-	# Split dataset (90% train_set / 10% test_set)
-	train_set_x_orig, test_set_x_orig = np.split(shuffled_x_subset,[int(0.9 * len(shuffled_x_subset))])
-	train_set_y_orig, test_set_y_orig = np.split(shuffled_y_subset,[int(0.9 * len(shuffled_y_subset))])
+	# Split dataset according to parameter 'percentageTrain'
+	train_set_x_orig, test_set_x_orig = np.split(shuffled_x_subset,[int(percentageTrain * len(shuffled_x_subset))])
+	train_set_y_orig, test_set_y_orig = np.split(shuffled_y_subset,[int(percentageTrain * len(shuffled_y_subset))])
 	
 	# Generate required array of attribute classes
 	classes = np.array((['NORMAL','PNEUMONIA']))
