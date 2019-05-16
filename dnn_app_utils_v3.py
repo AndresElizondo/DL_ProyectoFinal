@@ -85,12 +85,46 @@ def sigmoid_backward(dA, cache):
 
 
 def load_data():
+	# Read h5 datasets file
+	data = h5py.File('datasets/data_complete.h5', "r")
 	
-	data_merged = h5py.File('datasets/data_merged.h5', "r")
+	# Read dataset for NORMAL attribute elements
+	data_x_norm = np.array(data["X_norm"],np.ubyte)
+	data_y_norm = np.array(data["Y_norm"],np.ubyte)
 	
-	data_merged_x = data_merged["Xset"]
-	data_merged_y = data_merged["Yset"]
-	print(data_merged_x[1])
+	# Read dataset for PNEUMONIA attribute elements
+	data_x_pneum = np.array(data["X_pneum"],np.ubyte)
+	data_y_pneum = np.array(data["Y_pneum"],np.ubyte)
+	
+	# Concatenate datasets for both attributes to make up the whole dataset
+	data_x = np.concatenate((data_x_norm,data_x_pneum), axis=0)
+	data_y = np.concatenate((data_y_norm,data_y_pneum), axis=0)
+	
+	# Generate a random shuffler
+	s = np.arange(data_x.shape[0])
+	np.random.shuffle(s)
+
+	# Access datasets according to random shuffler, store in variable
+	shuffled_x = data_x[s]
+	shuffled_y = data_y[s]
+	
+	# Split dataset (90% train_set / 10% test_set)
+	train_set_x_orig, test_set_x_orig = np.split(shuffled_x,[int(0.9 * len(shuffled_x))])
+	train_set_y_orig, test_set_y_orig = np.split(shuffled_y,[int(0.9 * len(shuffled_y))])
+	
+	# Generate required array of attribute classes
+	classes = np.array((['NORMAL','PNEUMONIA']))
+	
+	# Close the h5 datasets file to free resources
+	data.close()
+	
+	# Flip that shite
+	train_set_y_orig = train_set_y_orig.reshape((1, train_set_y_orig.shape[0]))
+	test_set_y_orig = test_set_y_orig.reshape((1, test_set_y_orig.shape[0]))
+	
+	# Done
+	return train_set_x_orig, train_set_y_orig, test_set_x_orig, test_set_y_orig, classes
+	
 	#data_normal = h5py.File('datasets/data_normal.h5', "r")
     # ~ train_dataset = h5py.File('datasets/train_catvnoncat.h5', "r")
     # ~ train_set_x_orig = np.array(train_dataset["train_set_x"][:]) # your train set features
@@ -103,10 +137,8 @@ def load_data():
 
     # ~ classes = np.array(test_dataset["list_classes"][:]) # the list of classes
     
-    # ~ train_set_y_orig = train_set_y_orig.reshape((1, train_set_y_orig.shape[0]))
-    # ~ test_set_y_orig = test_set_y_orig.reshape((1, test_set_y_orig.shape[0]))
     
-    return train_set_x_orig, train_set_y_orig, test_set_x_orig, test_set_y_orig, classes
+    
 
 
 def initialize_parameters(n_x, n_h, n_y):
