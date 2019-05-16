@@ -1,0 +1,1611 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{DL-App}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Deep Neural Network for Image Classification:
+Application}\label{deep-neural-network-for-image-classification-application}
+
+You will use use the functions you'd implemented in the previous
+assignment to build a deep network, and apply it to cat vs non-cat
+classification. Hopefully, you will see an improvement in accuracy
+relative to your previous logistic regression implementation.
+
+\textbf{After this assignment you will be able to:} - Build and apply a
+deep neural network to supervised learning.
+
+Let's get started!
+
+    \subsection{1 - Packages}\label{packages}
+
+    Let's first import all the packages that you will need during this
+assignment. - \href{www.numpy.org}{numpy} is the fundamental package for
+scientific computing with Python. -
+\href{http://matplotlib.org}{matplotlib} is a library to plot graphs in
+Python. - \href{http://www.h5py.org}{h5py} is a common package to
+interact with a dataset that is stored on an H5 file. -
+\href{http://www.pythonware.com/products/pil/}{PIL} and
+\href{https://www.scipy.org/}{scipy} are used here to test your model
+with your own picture at the end. - dnn\_app\_utils provides the
+functions implemented in the "Building your Deep Neural Network: Step by
+Step" assignment to this notebook. - np.random.seed(1) is used to keep
+all the random function calls consistent. It will help us grade your
+work.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{time}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{h5py}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{scipy}
+        \PY{k+kn}{import} \PY{n+nn}{gc}
+        \PY{k+kn}{from} \PY{n+nn}{PIL} \PY{k}{import} \PY{n}{Image}
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{ndimage}
+        \PY{k+kn}{from} \PY{n+nn}{dnn\PYZus{}app\PYZus{}utils\PYZus{}v3} \PY{k}{import} \PY{o}{*}
+        
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{l+m+mf}{5.0}\PY{p}{,} \PY{l+m+mf}{4.0}\PY{p}{)} \PY{c+c1}{\PYZsh{} set default size of plots}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image.interpolation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nearest}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image.cmap}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}
+        
+        \PY{o}{\PYZpc{}}\PY{k}{load\PYZus{}ext} autoreload
+        \PY{o}{\PYZpc{}}\PY{k}{autoreload} 2
+        
+        \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{2 - Dataset}\label{dataset}
+
+You will use the same "Cat vs non-Cat" dataset as in "Logistic
+Regression as a Neural Network" (Assignment 2). The model you had built
+had 70\% test accuracy on classifying cats vs non-cats images.
+Hopefully, your new model will perform a better!
+
+\textbf{Problem Statement}: You are given a dataset ("data.h5")
+containing: - a training set of m\_train images labelled as cat (1) or
+non-cat (0) - a test set of m\_test images labelled as cat and non-cat -
+each image is of shape (num\_px, num\_px, 3) where 3 is for the 3
+channels (RGB).
+
+Let's get more familiar with the dataset. Load the data by running the
+cell below.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{train\PYZus{}x\PYZus{}orig}\PY{p}{,} \PY{n}{train\PYZus{}y}\PY{p}{,} \PY{n}{test\PYZus{}x\PYZus{}orig}\PY{p}{,} \PY{n}{test\PYZus{}y}\PY{p}{,} \PY{n}{classes} \PY{o}{=} \PY{n}{load\PYZus{}data}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{train\PYZus{}x\PYZus{}orig: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{train\PYZus{}x\PYZus{}orig}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{train\PYZus{}y: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{train\PYZus{}y}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test\PYZus{}x\PYZus{}orig: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{test\PYZus{}x\PYZus{}orig}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test\PYZus{}y: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{test\PYZus{}y}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{classes: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{classes}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+train\_x\_orig:  [[[[  3   3   3]
+   [  2   2   2]
+   [  0   0   0]
+   {\ldots}, 
+   [  0   0   0]
+   [  0   0   0]
+   [  0   0   0]]
+
+  [[  0   0   0]
+   [  0   0   0]
+   [  0   0   0]
+   {\ldots}, 
+   [  0   0   0]
+   [  1   1   1]
+   [  2   2   2]]
+
+  [[  0   0   0]
+   [  0   0   0]
+   [  3   3   3]
+   {\ldots}, 
+   [  0   0   0]
+   [  1   1   1]
+   [  2   2   2]]
+
+  {\ldots}, 
+  [[ 35  35  35]
+   [ 14  14  14]
+   [  1   1   1]
+   {\ldots}, 
+   [  5   5   5]
+   [ 18  18  18]
+   [ 36  36  36]]
+
+  [[ 17  17  17]
+   [  4   4   4]
+   [  0   0   0]
+   {\ldots}, 
+   [  0   0   0]
+   [  3   3   3]
+   [ 15  15  15]]
+
+  [[  0   0   0]
+   [  0   0   0]
+   [  0   0   0]
+   {\ldots}, 
+   [  5   5   5]
+   [  3   3   3]
+   [  8   8   8]]]
+
+
+ [[[ 72  72  72]
+   [ 37  37  37]
+   [ 40  40  40]
+   {\ldots}, 
+   [196 196 196]
+   [191 191 191]
+   [207 207 207]]
+
+  [[ 68  68  68]
+   [ 63  63  63]
+   [ 61  61  61]
+   {\ldots}, 
+   [187 187 187]
+   [203 203 203]
+   [240 240 240]]
+
+  [[ 73  73  73]
+   [ 74  74  74]
+   [ 45  45  45]
+   {\ldots}, 
+   [196 196 196]
+   [210 210 210]
+   [235 235 235]]
+
+  {\ldots}, 
+  [[  0   0   0]
+   [  0   0   0]
+   [  0   0   0]
+   {\ldots}, 
+   [  0   0   0]
+   [  0   0   0]
+   [  0   0   0]]
+
+  [[  0   0   0]
+   [  0   0   0]
+   [  0   0   0]
+   {\ldots}, 
+   [  0   0   0]
+   [  0   0   0]
+   [  0   0   0]]
+
+  [[  0   0   0]
+   [  0   0   0]
+   [  0   0   0]
+   {\ldots}, 
+   [  0   0   0]
+   [  0   0   0]
+   [  0   0   0]]]
+
+
+ [[[170 170 170]
+   [187 187 187]
+   [ 83  83  83]
+   {\ldots}, 
+   [232 232 232]
+   [233 233 233]
+   [233 233 233]]
+
+  [[187 187 187]
+   [ 99  99  99]
+   [ 43  43  43]
+   {\ldots}, 
+   [231 231 231]
+   [232 232 232]
+   [232 232 232]]
+
+  [[158 158 158]
+   [ 64  64  64]
+   [ 20  20  20]
+   {\ldots}, 
+   [230 230 230]
+   [231 231 231]
+   [231 231 231]]
+
+  {\ldots}, 
+  [[ 49  49  49]
+   [ 36  36  36]
+   [ 24  24  24]
+   {\ldots}, 
+   [ 25  25  25]
+   [ 34  34  34]
+   [ 42  42  42]]
+
+  [[ 40  40  40]
+   [ 32  32  32]
+   [ 26  26  26]
+   {\ldots}, 
+   [ 26  26  26]
+   [ 29  29  29]
+   [ 32  32  32]]
+
+  [[ 29  29  29]
+   [ 28  28  28]
+   [ 29  29  29]
+   {\ldots}, 
+   [ 28  28  28]
+   [ 24  24  24]
+   [ 20  20  20]]]
+
+
+ {\ldots}, 
+ [[[ 64  64  64]
+   [ 62  62  62]
+   [ 60  60  60]
+   {\ldots}, 
+   [ 54  54  54]
+   [ 56  56  56]
+   [ 57  57  57]]
+
+  [[ 61  61  61]
+   [ 61  61  61]
+   [ 61  61  61]
+   {\ldots}, 
+   [ 54  54  54]
+   [ 54  54  54]
+   [ 54  54  54]]
+
+  [[ 58  58  58]
+   [ 60  60  60]
+   [ 62  62  62]
+   {\ldots}, 
+   [ 55  55  55]
+   [ 53  53  53]
+   [ 52  52  52]]
+
+  {\ldots}, 
+  [[ 23  23  23]
+   [ 22  22  22]
+   [ 21  21  21]
+   {\ldots}, 
+   [ 18  18  18]
+   [ 21  21  21]
+   [ 17  17  17]]
+
+  [[ 23  23  23]
+   [ 22  22  22]
+   [ 21  21  21]
+   {\ldots}, 
+   [ 19  19  19]
+   [ 21  21  21]
+   [ 17  17  17]]
+
+  [[ 23  23  23]
+   [ 22  22  22]
+   [ 21  21  21]
+   {\ldots}, 
+   [ 19  19  19]
+   [ 21  21  21]
+   [ 16  16  16]]]
+
+
+ [[[ 41  41  41]
+   [ 49  49  49]
+   [ 56  56  56]
+   {\ldots}, 
+   [ 39  39  39]
+   [ 30  30  30]
+   [ 23  23  23]]
+
+  [[ 39  39  39]
+   [ 48  48  48]
+   [ 55  55  55]
+   {\ldots}, 
+   [ 36  36  36]
+   [ 27  27  27]
+   [ 20  20  20]]
+
+  [[ 36  36  36]
+   [ 45  45  45]
+   [ 53  53  53]
+   {\ldots}, 
+   [ 32  32  32]
+   [ 23  23  23]
+   [ 16  16  16]]
+
+  {\ldots}, 
+  [[  0   0   0]
+   [  0   0   0]
+   [  0   0   0]
+   {\ldots}, 
+   [  0   0   0]
+   [  0   0   0]
+   [  0   0   0]]
+
+  [[  0   0   0]
+   [  0   0   0]
+   [  0   0   0]
+   {\ldots}, 
+   [  0   0   0]
+   [  0   0   0]
+   [  0   0   0]]
+
+  [[  0   0   0]
+   [  0   0   0]
+   [  0   0   0]
+   {\ldots}, 
+   [  0   0   0]
+   [  0   0   0]
+   [  0   0   0]]]
+
+
+ [[[ 11  11  11]
+   [ 10  10  10]
+   [  8   8   8]
+   {\ldots}, 
+   [ 38  38  38]
+   [ 29  29  29]
+   [ 21  21  21]]
+
+  [[ 17  17  17]
+   [ 17  17  17]
+   [ 17  17  17]
+   {\ldots}, 
+   [ 30  30  30]
+   [ 25  25  25]
+   [ 26  26  26]]
+
+  [[ 30  30  30]
+   [ 30  30  30]
+   [ 30  30  30]
+   {\ldots}, 
+   [ 21  21  21]
+   [ 23  23  23]
+   [ 28  28  28]]
+
+  {\ldots}, 
+  [[ 44  44  44]
+   [ 35  35  35]
+   [ 25  25  25]
+   {\ldots}, 
+   [ 19  19  19]
+   [ 30  30  30]
+   [ 44  44  44]]
+
+  [[ 35  35  35]
+   [ 31  31  31]
+   [ 26  26  26]
+   {\ldots}, 
+   [ 19  19  19]
+   [ 23  23  23]
+   [ 32  32  32]]
+
+  [[ 23  23  23]
+   [ 26  26  26]
+   [ 28  28  28]
+   {\ldots}, 
+   [ 24  24  24]
+   [ 21  21  21]
+   [ 24  24  24]]]]
+train\_y:  [[1 1 1 1 1 1 1 1 1 0 0 1 1 0 1 0 1 1 1 1 1 0 1 1 1 1 1 1 1 1 1 1 1 0 0 1 1
+  0 0 1 1 1 0 1 0 1 0 0 1 1 1 0 1 1 1 0 0 1 1 1 1 0 1 1 0 1 1 1 1 0 1 1 1 1
+  1 1 1 0 1 1 1 0 1 1 1 1 0 0 0 1 1 0 1 0 0 1 0 0 1 1 1 1 1 0 1 0 1 1 1 0 1
+  1 1 1 1 1 1 1 1 1 0 1 0 1 1 1 1 1 1 1 1 1 1 1 1 0 1 1 0 0 1 1 1 1 1 1 1 1
+  1 1 1 1 1 1 1 1 0 1 1 1 0 0 1 1 1 0 1 1 1 1 1 1 1 0 1 1 0 0 1 1 1 1 1 1 1
+  1 1 1 1 0 1 1 1 1 1 0 1 0 1 0 1 1 0 1 1 1 1 0 1 0 1 1 1 1 0 1 1 1 0 1 1 1
+  1 0 0 0 1 1 0 1 1 0 1 0 1 1 1 1 1 1 1 0 1 1 1 0 0 1 1 1 1 0 1 1 1 1 1 0 0
+  1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 1 0 0 1 1 1 1 1 1 1 1 0 0 1 1 1 1
+  1 1 0 0 1 1 1 1 0 1 0 1 0 1 0 0 1 1 1 1 1 1 1 0 1 0 1 1 0 1 1 0 1 1 0 0 1
+  1 1 0 1 1 1 0 0 0 1 0 1 1 1 0 0 1 1 1 1 1 0 0 1 0 1 1 1 1 1 0 1 1 1 1 1 1
+  0 1 0 1 1 1 1 1 1 1 0 0 1 1 0 0 1 0 0 1 1 1 1 1 1 1 1 1 1 0 1 0 0 1 1 1 0
+  1 1 1 0 1 1 1 0 1 1 1 1 0 0 0 1 0 1 1 0 0 0 1 1 1 1 1 1 1 0 0 1 1 1 0 1 0
+  1 1 1 1 1 0 1 1 1 0 1 1 0 1 1 0 1 0 1 1 1 1 1 1 0 1 1 1 1 0 1 1 0 1 0 0 0
+  1 1 1 0 1 1 1 1 0 0 1 1 1 1 1 0 1 1 1 1 1 1 1 1 1 0 1 1 1 1 0 1 0 1 1 1 1
+  1 1 1 0 1 0 1 1 1 1 1 1 1 0 1 0 1 0 0 1 0 1]]
+test\_x\_orig:  [[[[  6   6   6]
+   [ 12  12  12]
+   [ 15  15  15]
+   {\ldots}, 
+   [ 15  15  15]
+   [ 12  12  12]
+   [  8   8   8]]
+
+  [[  3   3   3]
+   [  9   9   9]
+   [ 12  12  12]
+   {\ldots}, 
+   [ 15  15  15]
+   [ 11  11  11]
+   [  7   7   7]]
+
+  [[  4   4   4]
+   [ 10  10  10]
+   [ 13  13  13]
+   {\ldots}, 
+   [ 16  16  16]
+   [ 12  12  12]
+   [  8   8   8]]
+
+  {\ldots}, 
+  [[  0   0   0]
+   [  0   0   0]
+   [  0   0   0]
+   {\ldots}, 
+   [  0   0   0]
+   [  0   0   0]
+   [  0   0   0]]
+
+  [[ 20  20  20]
+   [  0   0   0]
+   [  0   0   0]
+   {\ldots}, 
+   [  0   0   0]
+   [  0   0   0]
+   [ 20  20  20]]
+
+  [[ 68  68  68]
+   [ 27  27  27]
+   [  0   0   0]
+   {\ldots}, 
+   [  0   0   0]
+   [ 27  27  27]
+   [ 68  68  68]]]
+
+
+ [[[101 101 101]
+   [105 105 105]
+   [110 110 110]
+   {\ldots}, 
+   [  0   0   0]
+   [  1   1   1]
+   [  2   2   2]]
+
+  [[100 100 100]
+   [104 104 104]
+   [108 108 108]
+   {\ldots}, 
+   [  0   0   0]
+   [  0   0   0]
+   [  0   0   0]]
+
+  [[ 87  87  87]
+   [ 90  90  90]
+   [ 95  95  95]
+   {\ldots}, 
+   [  0   0   0]
+   [  0   0   0]
+   [  0   0   0]]
+
+  {\ldots}, 
+  [[ 18  18  18]
+   [ 18  18  18]
+   [ 18  18  18]
+   {\ldots}, 
+   [ 96  96  96]
+   [128 128 128]
+   [162 162 162]]
+
+  [[ 18  18  18]
+   [ 18  18  18]
+   [ 18  18  18]
+   {\ldots}, 
+   [ 97  97  97]
+   [127 127 127]
+   [160 160 160]]
+
+  [[ 18  18  18]
+   [ 18  18  18]
+   [ 18  18  18]
+   {\ldots}, 
+   [ 98  98  98]
+   [127 127 127]
+   [158 158 158]]]
+
+
+ [[[ 92  92  92]
+   [ 90  90  90]
+   [ 88  88  88]
+   {\ldots}, 
+   [ 98  98  98]
+   [ 95  95  95]
+   [ 93  93  93]]
+
+  [[ 95  95  95]
+   [ 93  93  93]
+   [ 91  91  91]
+   {\ldots}, 
+   [ 98  98  98]
+   [ 96  96  96]
+   [ 95  95  95]]
+
+  [[ 98  98  98]
+   [ 96  96  96]
+   [ 94  94  94]
+   {\ldots}, 
+   [ 99  99  99]
+   [ 98  98  98]
+   [ 98  98  98]]
+
+  {\ldots}, 
+  [[  4   4   4]
+   [  5   5   5]
+   [ 34  34  34]
+   {\ldots}, 
+   [  9   9   9]
+   [  8   8   8]
+   [ 11  11  11]]
+
+  [[  1   1   1]
+   [  3   3   3]
+   [ 33  33  33]
+   {\ldots}, 
+   [ 10  10  10]
+   [  8   8   8]
+   [ 10  10  10]]
+
+  [[  1   1   1]
+   [  3   3   3]
+   [ 35  35  35]
+   {\ldots}, 
+   [ 10  10  10]
+   [  7   7   7]
+   [  9   9   9]]]
+
+
+ {\ldots}, 
+ [[[  2   2   2]
+   [  2   2   2]
+   [  1   1   1]
+   {\ldots}, 
+   [146 146 146]
+   [ 63  63  63]
+   [ 14  14  14]]
+
+  [[  0   0   0]
+   [  1   1   1]
+   [  0   0   0]
+   {\ldots}, 
+   [ 11  11  11]
+   [108 108 108]
+   [  0   0   0]]
+
+  [[  0   0   0]
+   [  0   0   0]
+   [  0   0   0]
+   {\ldots}, 
+   [103 103 103]
+   [109 109 109]
+   [ 15  15  15]]
+
+  {\ldots}, 
+  [[  0   0   0]
+   [ 13  13  13]
+   [ 41  41  41]
+   {\ldots}, 
+   [  3   3   3]
+   [  4   4   4]
+   [  2   2   2]]
+
+  [[ 14  14  14]
+   [138 138 138]
+   [174 174 174]
+   {\ldots}, 
+   [  1   1   1]
+   [  3   3   3]
+   [  1   1   1]]
+
+  [[ 39  39  39]
+   [127 127 127]
+   [ 12  12  12]
+   {\ldots}, 
+   [  0   0   0]
+   [  0   0   0]
+   [  0   0   0]]]
+
+
+ [[[ 73  73  73]
+   [ 74  74  74]
+   [ 71  71  71]
+   {\ldots}, 
+   [101 101 101]
+   [106 106 106]
+   [111 111 111]]
+
+  [[ 77  77  77]
+   [ 74  74  74]
+   [ 72  72  72]
+   {\ldots}, 
+   [105 105 105]
+   [109 109 109]
+   [112 112 112]]
+
+  [[ 78  78  78]
+   [ 74  74  74]
+   [ 77  77  77]
+   {\ldots}, 
+   [104 104 104]
+   [112 112 112]
+   [120 120 120]]
+
+  {\ldots}, 
+  [[ 12  12  12]
+   [ 15  15  15]
+   [  6   6   6]
+   {\ldots}, 
+   [ 47  47  47]
+   [ 31  31  31]
+   [  4   4   4]]
+
+  [[ 12  12  12]
+   [ 15  15  15]
+   [  6   6   6]
+   {\ldots}, 
+   [ 47  47  47]
+   [ 32  32  32]
+   [  5   5   5]]
+
+  [[ 11  11  11]
+   [ 15  15  15]
+   [  6   6   6]
+   {\ldots}, 
+   [ 48  48  48]
+   [ 33  33  33]
+   [  6   6   6]]]
+
+
+ [[[  0   0   0]
+   [  1   1   1]
+   [  5   5   5]
+   {\ldots}, 
+   [141 141 141]
+   [146 146 146]
+   [157 157 157]]
+
+  [[  3   3   3]
+   [  6   6   6]
+   [ 11  11  11]
+   {\ldots}, 
+   [156 156 156]
+   [162 162 162]
+   [169 169 169]]
+
+  [[  9   9   9]
+   [ 14  14  14]
+   [ 20  20  20]
+   {\ldots}, 
+   [171 171 171]
+   [167 167 167]
+   [161 161 161]]
+
+  {\ldots}, 
+  [[  1   1   1]
+   [  1   1   1]
+   [  2   2   2]
+   {\ldots}, 
+   [  0   0   0]
+   [  0   0   0]
+   [  0   0   0]]
+
+  [[  1   1   1]
+   [  1   1   1]
+   [  2   2   2]
+   {\ldots}, 
+   [  0   0   0]
+   [  0   0   0]
+   [  0   0   0]]
+
+  [[  1   1   1]
+   [  1   1   1]
+   [  2   2   2]
+   {\ldots}, 
+   [  0   0   0]
+   [  0   0   0]
+   [  0   0   0]]]]
+test\_y:  [[1 1 1 0 1 1 1 0 1 1 1 0 1 1 0 1 1 1 0 0 1 1 1 1 1 1 1 0 1 1 0 1 1 0 0 1 1
+  0 1 1 0 1 0 0 1 1 0 1 1 1 0 1 1 1 1 1 1 1 1 0]]
+classes:  ['NORMAL' 'PNEUMONIA']
+
+    \end{Verbatim}
+
+    The following code will show you an image in the dataset. Feel free to
+change the index and re-run the cell multiple times to see other images.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} Example of a picture}
+        \PY{n}{index} \PY{o}{=} \PY{l+m+mi}{10}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{train\PYZus{}x\PYZus{}orig}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y = }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{train\PYZus{}y}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{index}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{. It}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s a }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{classes}\PY{p}{[}\PY{n}{train\PYZus{}y}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{index}\PY{p}{]}\PY{p}{]} \PY{o}{+}  \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ picture.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+y = 0. It's a NORMAL picture.
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} Explore your dataset }
+        \PY{n}{m\PYZus{}train} \PY{o}{=} \PY{n}{train\PYZus{}x\PYZus{}orig}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{num\PYZus{}px} \PY{o}{=} \PY{n}{train\PYZus{}x\PYZus{}orig}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+        \PY{n}{m\PYZus{}test} \PY{o}{=} \PY{n}{test\PYZus{}x\PYZus{}orig}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        
+        \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of training examples: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{m\PYZus{}train}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of testing examples: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{m\PYZus{}test}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Each image is of size: (}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{num\PYZus{}px}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{, }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{num\PYZus{}px}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{, 3)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{train\PYZus{}x\PYZus{}orig shape: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{train\PYZus{}x\PYZus{}orig}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{train\PYZus{}y shape: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{train\PYZus{}y}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test\PYZus{}x\PYZus{}orig shape: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{test\PYZus{}x\PYZus{}orig}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test\PYZus{}y shape: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{test\PYZus{}y}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Number of training examples: 540
+Number of testing examples: 60
+Each image is of size: (256, 256, 3)
+train\_x\_orig shape: (540, 256, 256, 3)
+train\_y shape: (1, 540)
+test\_x\_orig shape: (60, 256, 256, 3)
+test\_y shape: (1, 60)
+
+    \end{Verbatim}
+
+    As usual, you reshape and standardize the images before feeding them to
+the network. The code is given in the cell below.
+
+Figure 1: Image to vector conversion. 
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Reshape the training and test examples }
+        \PY{n}{train\PYZus{}x\PYZus{}flatten} \PY{o}{=} \PY{n}{train\PYZus{}x\PYZus{}orig}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{train\PYZus{}x\PYZus{}orig}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{T}   \PY{c+c1}{\PYZsh{} The \PYZdq{}\PYZhy{}1\PYZdq{} makes reshape flatten the remaining dimensions}
+        \PY{n}{test\PYZus{}x\PYZus{}flatten} \PY{o}{=} \PY{n}{test\PYZus{}x\PYZus{}orig}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{test\PYZus{}x\PYZus{}orig}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+        
+        \PY{c+c1}{\PYZsh{} Standardize data to have feature values between 0 and 1.}
+        \PY{n}{train\PYZus{}x} \PY{o}{=} \PY{n}{train\PYZus{}x\PYZus{}flatten}\PY{o}{/}\PY{l+m+mf}{255.}
+        \PY{n}{test\PYZus{}x} \PY{o}{=} \PY{n}{test\PYZus{}x\PYZus{}flatten}\PY{o}{/}\PY{l+m+mf}{255.}
+        
+        \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{train\PYZus{}x}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s shape: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test\PYZus{}x}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s shape: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{test\PYZus{}x}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+train\_x's shape: (196608, 540)
+test\_x's shape: (196608, 60)
+
+    \end{Verbatim}
+
+    \(12,288\) equals \(64 \times 64 \times 3\) which is the size of one
+reshaped image vector.
+
+    \subsection{3 - Architecture of your
+model}\label{architecture-of-your-model}
+
+    Now that you are familiar with the dataset, it is time to build a deep
+neural network to distinguish cat images from non-cat images.
+
+You will build two different models: - A 2-layer neural network - An
+L-layer deep neural network
+
+You will then compare the performance of these models, and also try out
+different values for \(L\).
+
+Let's look at the two architectures.
+
+\subsubsection{3.1 - 2-layer neural network}\label{layer-neural-network}
+
+Figure 2: 2-layer neural network. The model can be summarized as:
+\textbf{\emph{INPUT -\textgreater{} LINEAR -\textgreater{} RELU
+-\textgreater{} LINEAR -\textgreater{} SIGMOID -\textgreater{} OUTPUT}}.
+
+Detailed Architecture of figure 2: - The input is a (64,64,3) image
+which is flattened to a vector of size \((12288,1)\). - The
+corresponding vector: \([x_0,x_1,...,x_{12287}]^T\) is then multiplied
+by the weight matrix \(W^{[1]}\) of size \((n^{[1]}, 12288)\). - You
+then add a bias term and take its relu to get the following vector:
+\([a_0^{[1]}, a_1^{[1]},..., a_{n^{[1]}-1}^{[1]}]^T\). - You then repeat
+the same process. - You multiply the resulting vector by \(W^{[2]}\) and
+add your intercept (bias). - Finally, you take the sigmoid of the
+result. If it is greater than 0.5, you classify it to be a cat.
+
+\subsubsection{3.2 - L-layer deep neural
+network}\label{l-layer-deep-neural-network}
+
+It is hard to represent an L-layer deep neural network with the above
+representation. However, here is a simplified network representation:
+
+Figure 3: L-layer neural network. The model can be summarized as:
+\textbf{\emph{{[}LINEAR -\textgreater{} RELU{]} \(\times\) (L-1)
+-\textgreater{} LINEAR -\textgreater{} SIGMOID}}
+
+Detailed Architecture of figure 3: - The input is a (64,64,3) image
+which is flattened to a vector of size (12288,1). - The corresponding
+vector: \([x_0,x_1,...,x_{12287}]^T\) is then multiplied by the weight
+matrix \(W^{[1]}\) and then you add the intercept \(b^{[1]}\). The
+result is called the linear unit. - Next, you take the relu of the
+linear unit. This process could be repeated several times for each
+\((W^{[l]}, b^{[l]})\) depending on the model architecture. - Finally,
+you take the sigmoid of the final linear unit. If it is greater than
+0.5, you classify it to be a cat.
+
+\subsubsection{3.3 - General methodology}\label{general-methodology}
+
+As usual you will follow the Deep Learning methodology to build the
+model: 1. Initialize parameters / Define hyperparameters 2. Loop for
+num\_iterations: a. Forward propagation b. Compute cost function c.
+Backward propagation d. Update parameters (using parameters, and grads
+from backprop) 4. Use trained parameters to predict labels
+
+Let's now implement those two models!
+
+    \subsection{4 - Two-layer neural
+network}\label{two-layer-neural-network}
+
+\textbf{Question}: Use the helper functions you have implemented in the
+previous assignment to build a 2-layer neural network with the following
+structure: \emph{LINEAR -\textgreater{} RELU -\textgreater{} LINEAR
+-\textgreater{} SIGMOID}. The functions you may need and their inputs
+are:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def}\NormalTok{ initialize_parameters(n_x, n_h, n_y):}
+\NormalTok{    ...}
+    \ControlFlowTok{return}\NormalTok{ parameters }
+\KeywordTok{def}\NormalTok{ linear_activation_forward(A_prev, W, b, activation):}
+\NormalTok{    ...}
+    \ControlFlowTok{return}\NormalTok{ A, cache}
+\KeywordTok{def}\NormalTok{ compute_cost(AL, Y):}
+\NormalTok{    ...}
+    \ControlFlowTok{return}\NormalTok{ cost}
+\KeywordTok{def}\NormalTok{ linear_activation_backward(dA, cache, activation):}
+\NormalTok{    ...}
+    \ControlFlowTok{return}\NormalTok{ dA_prev, dW, db}
+\KeywordTok{def}\NormalTok{ update_parameters(parameters, grads, learning_rate):}
+\NormalTok{    ...}
+    \ControlFlowTok{return}\NormalTok{ parameters}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} CONSTANTS DEFINING THE MODEL \PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{n}{n\PYZus{}x} \PY{o}{=} \PY{l+m+mi}{256}\PY{o}{*}\PY{l+m+mi}{256}\PY{o}{*}\PY{l+m+mi}{3}     \PY{c+c1}{\PYZsh{} num\PYZus{}px * num\PYZus{}px * 3}
+        \PY{n}{n\PYZus{}h} \PY{o}{=} \PY{l+m+mi}{3}
+        \PY{n}{n\PYZus{}y} \PY{o}{=} \PY{l+m+mi}{1}
+        \PY{n}{layers\PYZus{}dims} \PY{o}{=} \PY{p}{(}\PY{n}{n\PYZus{}x}\PY{p}{,} \PY{n}{n\PYZus{}h}\PY{p}{,} \PY{n}{n\PYZus{}y}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} GRADED FUNCTION: two\PYZus{}layer\PYZus{}model}
+        
+        \PY{k}{def} \PY{n+nf}{two\PYZus{}layer\PYZus{}model}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{layers\PYZus{}dims}\PY{p}{,} \PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{0.0075}\PY{p}{,} \PY{n}{num\PYZus{}iterations} \PY{o}{=} \PY{l+m+mi}{3000}\PY{p}{,} \PY{n}{print\PYZus{}cost}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    Implements a two\PYZhy{}layer neural network: LINEAR\PYZhy{}\PYZgt{}RELU\PYZhy{}\PYZgt{}LINEAR\PYZhy{}\PYZgt{}SIGMOID.}
+        \PY{l+s+sd}{    }
+        \PY{l+s+sd}{    Arguments:}
+        \PY{l+s+sd}{    X \PYZhy{}\PYZhy{} input data, of shape (n\PYZus{}x, number of examples)}
+        \PY{l+s+sd}{    Y \PYZhy{}\PYZhy{} true \PYZdq{}label\PYZdq{} vector (containing 0 if cat, 1 if non\PYZhy{}cat), of shape (1, number of examples)}
+        \PY{l+s+sd}{    layers\PYZus{}dims \PYZhy{}\PYZhy{} dimensions of the layers (n\PYZus{}x, n\PYZus{}h, n\PYZus{}y)}
+        \PY{l+s+sd}{    num\PYZus{}iterations \PYZhy{}\PYZhy{} number of iterations of the optimization loop}
+        \PY{l+s+sd}{    learning\PYZus{}rate \PYZhy{}\PYZhy{} learning rate of the gradient descent update rule}
+        \PY{l+s+sd}{    print\PYZus{}cost \PYZhy{}\PYZhy{} If set to True, this will print the cost every 100 iterations }
+        \PY{l+s+sd}{    }
+        \PY{l+s+sd}{    Returns:}
+        \PY{l+s+sd}{    parameters \PYZhy{}\PYZhy{} a dictionary containing W1, W2, b1, and b2}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            
+            \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{grads} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+            \PY{n}{costs} \PY{o}{=} \PY{p}{[}\PY{p}{]}                              \PY{c+c1}{\PYZsh{} to keep track of the cost}
+            \PY{n}{m} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}                           \PY{c+c1}{\PYZsh{} number of examples}
+            \PY{p}{(}\PY{n}{n\PYZus{}x}\PY{p}{,} \PY{n}{n\PYZus{}h}\PY{p}{,} \PY{n}{n\PYZus{}y}\PY{p}{)} \PY{o}{=} \PY{n}{layers\PYZus{}dims}
+            
+            \PY{c+c1}{\PYZsh{} Initialize parameters dictionary, by calling one of the functions you\PYZsq{}d previously implemented}
+            \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} START CODE HERE \PYZsh{}\PYZsh{}\PYZsh{} (≈ 1 line of code)}
+            \PY{n}{parameters} \PY{o}{=} \PY{n}{initialize\PYZus{}parameters}\PY{p}{(}\PY{n}{n\PYZus{}x}\PY{p}{,} \PY{n}{n\PYZus{}h}\PY{p}{,} \PY{n}{n\PYZus{}y}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} END CODE HERE \PYZsh{}\PYZsh{}\PYZsh{}}
+            
+            \PY{c+c1}{\PYZsh{} Get W1, b1, W2 and b2 from the dictionary parameters.}
+            \PY{n}{W1} \PY{o}{=} \PY{n}{parameters}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{W1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+            \PY{n}{b1} \PY{o}{=} \PY{n}{parameters}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+            \PY{n}{W2} \PY{o}{=} \PY{n}{parameters}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{W2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+            \PY{n}{b2} \PY{o}{=} \PY{n}{parameters}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+            
+            \PY{c+c1}{\PYZsh{} Loop (gradient descent)}
+        
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{num\PYZus{}iterations}\PY{p}{)}\PY{p}{:}
+                \PY{n}{gc}\PY{o}{.}\PY{n}{collect}\PY{p}{(}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{} Forward propagation: LINEAR \PYZhy{}\PYZgt{} RELU \PYZhy{}\PYZgt{} LINEAR \PYZhy{}\PYZgt{} SIGMOID. Inputs: \PYZdq{}X, W1, b1, W2, b2\PYZdq{}. Output: \PYZdq{}A1, cache1, A2, cache2\PYZdq{}.}
+                \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} START CODE HERE \PYZsh{}\PYZsh{}\PYZsh{} (≈ 2 lines of code)}
+                \PY{n}{A1}\PY{p}{,} \PY{n}{cache1} \PY{o}{=} \PY{n}{linear\PYZus{}activation\PYZus{}forward}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{W1}\PY{p}{,} \PY{n}{b1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{n}{A2}\PY{p}{,} \PY{n}{cache2} \PY{o}{=} \PY{n}{linear\PYZus{}activation\PYZus{}forward}\PY{p}{(}\PY{n}{A1}\PY{p}{,} \PY{n}{W2}\PY{p}{,} \PY{n}{b2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sigmoid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} END CODE HERE \PYZsh{}\PYZsh{}\PYZsh{}}
+                
+                \PY{c+c1}{\PYZsh{} Compute cost}
+                \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} START CODE HERE \PYZsh{}\PYZsh{}\PYZsh{} (≈ 1 line of code)}
+                \PY{n}{cost} \PY{o}{=} \PY{n}{compute\PYZus{}cost}\PY{p}{(}\PY{n}{A2}\PY{p}{,} \PY{n}{Y}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} END CODE HERE \PYZsh{}\PYZsh{}\PYZsh{}}
+                
+                \PY{c+c1}{\PYZsh{} Initializing backward propagation}
+                \PY{n}{dA2} \PY{o}{=} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{divide}\PY{p}{(}\PY{n}{Y}\PY{p}{,} \PY{n}{A2}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{divide}\PY{p}{(}\PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{Y}\PY{p}{,} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{A2}\PY{p}{)}\PY{p}{)}
+                
+                \PY{c+c1}{\PYZsh{} Backward propagation. Inputs: \PYZdq{}dA2, cache2, cache1\PYZdq{}. Outputs: \PYZdq{}dA1, dW2, db2; also dA0 (not used), dW1, db1\PYZdq{}.}
+                \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} START CODE HERE \PYZsh{}\PYZsh{}\PYZsh{} (≈ 2 lines of code)}
+                \PY{n}{dA1}\PY{p}{,} \PY{n}{dW2}\PY{p}{,} \PY{n}{db2} \PY{o}{=} \PY{n}{linear\PYZus{}activation\PYZus{}backward}\PY{p}{(}\PY{n}{dA2}\PY{p}{,} \PY{n}{cache2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sigmoid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{n}{dA0}\PY{p}{,} \PY{n}{dW1}\PY{p}{,} \PY{n}{db1} \PY{o}{=} \PY{n}{linear\PYZus{}activation\PYZus{}backward}\PY{p}{(}\PY{n}{dA1}\PY{p}{,} \PY{n}{cache1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} END CODE HERE \PYZsh{}\PYZsh{}\PYZsh{}}
+                
+                \PY{c+c1}{\PYZsh{} Set grads[\PYZsq{}dWl\PYZsq{}] to dW1, grads[\PYZsq{}db1\PYZsq{}] to db1, grads[\PYZsq{}dW2\PYZsq{}] to dW2, grads[\PYZsq{}db2\PYZsq{}] to db2}
+                \PY{n}{grads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dW1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dW1}
+                \PY{n}{grads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{db1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{db1}
+                \PY{n}{grads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dW2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dW2}
+                \PY{n}{grads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{db2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{db2}
+                
+                \PY{c+c1}{\PYZsh{} Update parameters.}
+                \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} START CODE HERE \PYZsh{}\PYZsh{}\PYZsh{} (approx. 1 line of code)}
+                \PY{n}{parameters} \PY{o}{=} \PY{n}{update\PYZus{}parameters}\PY{p}{(}\PY{n}{parameters}\PY{p}{,} \PY{n}{grads}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} END CODE HERE \PYZsh{}\PYZsh{}\PYZsh{}}
+        
+                \PY{c+c1}{\PYZsh{} Retrieve W1, b1, W2, b2 from parameters}
+                \PY{n}{W1} \PY{o}{=} \PY{n}{parameters}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{W1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+                \PY{n}{b1} \PY{o}{=} \PY{n}{parameters}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+                \PY{n}{W2} \PY{o}{=} \PY{n}{parameters}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{W2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+                \PY{n}{b2} \PY{o}{=} \PY{n}{parameters}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+                
+                \PY{c+c1}{\PYZsh{} Print the cost every 100 training example}
+                \PY{k}{if} \PY{n}{print\PYZus{}cost} \PY{o+ow}{and} \PY{n}{i} \PY{o}{\PYZpc{}} \PY{l+m+mi}{100} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cost after iteration }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{squeeze}\PY{p}{(}\PY{n}{cost}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                \PY{k}{if} \PY{n}{print\PYZus{}cost} \PY{o+ow}{and} \PY{n}{i} \PY{o}{\PYZpc{}} \PY{l+m+mi}{100} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                    \PY{n}{costs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{cost}\PY{p}{)}
+               
+            \PY{c+c1}{\PYZsh{} plot the cost}
+        
+            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{squeeze}\PY{p}{(}\PY{n}{costs}\PY{p}{)}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{iterations (per tens)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Learning rate =}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{learning\PYZus{}rate}\PY{p}{)}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+            
+            \PY{k}{return} \PY{n}{parameters}
+\end{Verbatim}
+
+
+    Run the cell below to train your parameters. See if your model runs. The
+cost should be decreasing. It may take up to 5 minutes to run 2500
+iterations. Check if the "Cost after iteration 0" matches the expected
+output below, if not click on the square (⬛) on the upper bar of the
+notebook to stop the cell and try to find your error.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{gc}\PY{o}{.}\PY{n}{collect}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} 2208
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{parameters} \PY{o}{=} \PY{n}{two\PYZus{}layer\PYZus{}model}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{,} \PY{n}{train\PYZus{}y}\PY{p}{,} \PY{n}{layers\PYZus{}dims} \PY{o}{=} \PY{p}{(}\PY{n}{n\PYZus{}x}\PY{p}{,} \PY{n}{n\PYZus{}h}\PY{p}{,} \PY{n}{n\PYZus{}y}\PY{p}{)}\PY{p}{,} \PY{n}{num\PYZus{}iterations} \PY{o}{=} \PY{l+m+mi}{5}\PY{p}{,} \PY{n}{print\PYZus{}cost}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Cost after iteration 0: 0.717263853560449
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{Expected Output}:
+
+\begin{verbatim}
+<tr>
+    <td> **Cost after iteration 0**</td>
+    <td> 0.6930497356599888 </td>
+</tr>
+<tr>
+    <td> **Cost after iteration 100**</td>
+    <td> 0.6464320953428849 </td>
+</tr>
+<tr>
+    <td> **...**</td>
+    <td> ... </td>
+</tr>
+<tr>
+    <td> **Cost after iteration 2400**</td>
+    <td> 0.048554785628770206 </td>
+</tr>
+\end{verbatim}
+
+    Good thing you built a vectorized implementation! Otherwise it might
+have taken 10 times longer to train this.
+
+Now, you can use the trained parameters to classify images from the
+dataset. To see your predictions on the training and test sets, run the
+cell below.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{predictions\PYZus{}train} \PY{o}{=} \PY{n}{predict}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{,} \PY{n}{train\PYZus{}y}\PY{p}{,} \PY{n}{parameters}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accuracy: 0.733333333333
+
+    \end{Verbatim}
+
+    \textbf{Expected Output}:
+
+\begin{verbatim}
+<tr>
+    <td> **Accuracy**</td>
+    <td> 1.0 </td>
+</tr>
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{predictions\PYZus{}test} \PY{o}{=} \PY{n}{predict}\PY{p}{(}\PY{n}{test\PYZus{}x}\PY{p}{,} \PY{n}{test\PYZus{}y}\PY{p}{,} \PY{n}{parameters}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accuracy: 0.716666666667
+
+    \end{Verbatim}
+
+    \textbf{Expected Output}:
+
+\begin{verbatim}
+<tr>
+    <td> **Accuracy**</td>
+    <td> 0.72 </td>
+</tr>
+\end{verbatim}
+
+    \textbf{Note}: You may notice that running the model on fewer iterations
+(say 1500) gives better accuracy on the test set. This is called "early
+stopping" and we will talk about it in the next course. Early stopping
+is a way to prevent overfitting.
+
+Congratulations! It seems that your 2-layer neural network has better
+performance (72\%) than the logistic regression implementation (70\%,
+assignment week 2). Let's see if you can do even better with an
+\(L\)-layer model.
+
+    \subsection{5 - L-layer Neural Network}\label{l-layer-neural-network}
+
+\textbf{Question}: Use the helper functions you have implemented
+previously to build an \(L\)-layer neural network with the following
+structure: \emph{{[}LINEAR -\textgreater{} RELU{]}\(\times\)(L-1)
+-\textgreater{} LINEAR -\textgreater{} SIGMOID}. The functions you may
+need and their inputs are:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def}\NormalTok{ initialize_parameters_deep(layers_dims):}
+\NormalTok{    ...}
+    \ControlFlowTok{return}\NormalTok{ parameters }
+\KeywordTok{def}\NormalTok{ L_model_forward(X, parameters):}
+\NormalTok{    ...}
+    \ControlFlowTok{return}\NormalTok{ AL, caches}
+\KeywordTok{def}\NormalTok{ compute_cost(AL, Y):}
+\NormalTok{    ...}
+    \ControlFlowTok{return}\NormalTok{ cost}
+\KeywordTok{def}\NormalTok{ L_model_backward(AL, Y, caches):}
+\NormalTok{    ...}
+    \ControlFlowTok{return}\NormalTok{ grads}
+\KeywordTok{def}\NormalTok{ update_parameters(parameters, grads, learning_rate):}
+\NormalTok{    ...}
+    \ControlFlowTok{return}\NormalTok{ parameters}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} CONSTANTS \PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{n}{layers\PYZus{}dims} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{256}\PY{o}{*}\PY{l+m+mi}{256}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]} \PY{c+c1}{\PYZsh{}  4\PYZhy{}layer model}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} GRADED FUNCTION: L\PYZus{}layer\PYZus{}model}
+         
+         \PY{k}{def} \PY{n+nf}{L\PYZus{}layer\PYZus{}model}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{layers\PYZus{}dims}\PY{p}{,} \PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{0.0075}\PY{p}{,} \PY{n}{num\PYZus{}iterations} \PY{o}{=} \PY{l+m+mi}{3000}\PY{p}{,} \PY{n}{print\PYZus{}cost}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{:}\PY{c+c1}{\PYZsh{}lr was 0.009}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Implements a L\PYZhy{}layer neural network: [LINEAR\PYZhy{}\PYZgt{}RELU]*(L\PYZhy{}1)\PYZhy{}\PYZgt{}LINEAR\PYZhy{}\PYZgt{}SIGMOID.}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Arguments:}
+         \PY{l+s+sd}{    X \PYZhy{}\PYZhy{} data, numpy array of shape (number of examples, num\PYZus{}px * num\PYZus{}px * 3)}
+         \PY{l+s+sd}{    Y \PYZhy{}\PYZhy{} true \PYZdq{}label\PYZdq{} vector (containing 0 if cat, 1 if non\PYZhy{}cat), of shape (1, number of examples)}
+         \PY{l+s+sd}{    layers\PYZus{}dims \PYZhy{}\PYZhy{} list containing the input size and each layer size, of length (number of layers + 1).}
+         \PY{l+s+sd}{    learning\PYZus{}rate \PYZhy{}\PYZhy{} learning rate of the gradient descent update rule}
+         \PY{l+s+sd}{    num\PYZus{}iterations \PYZhy{}\PYZhy{} number of iterations of the optimization loop}
+         \PY{l+s+sd}{    print\PYZus{}cost \PYZhy{}\PYZhy{} if True, it prints the cost every 100 steps}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Returns:}
+         \PY{l+s+sd}{    parameters \PYZhy{}\PYZhy{} parameters learnt by the model. They can then be used to predict.}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+         
+             \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{costs} \PY{o}{=} \PY{p}{[}\PY{p}{]}                         \PY{c+c1}{\PYZsh{} keep track of cost}
+             
+             \PY{c+c1}{\PYZsh{} Parameters initialization. (≈ 1 line of code)}
+             \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} START CODE HERE \PYZsh{}\PYZsh{}\PYZsh{}}
+             \PY{n}{parameters} \PY{o}{=} \PY{n}{initialize\PYZus{}parameters\PYZus{}deep}\PY{p}{(}\PY{n}{layers\PYZus{}dims}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} END CODE HERE \PYZsh{}\PYZsh{}\PYZsh{}}
+             
+             \PY{c+c1}{\PYZsh{} Loop (gradient descent)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{num\PYZus{}iterations}\PY{p}{)}\PY{p}{:}
+         
+                 \PY{c+c1}{\PYZsh{} Forward propagation: [LINEAR \PYZhy{}\PYZgt{} RELU]*(L\PYZhy{}1) \PYZhy{}\PYZgt{} LINEAR \PYZhy{}\PYZgt{} SIGMOID.}
+                 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} START CODE HERE \PYZsh{}\PYZsh{}\PYZsh{} (≈ 1 line of code)}
+                 \PY{n}{AL}\PY{p}{,} \PY{n}{caches} \PY{o}{=} \PY{n}{L\PYZus{}model\PYZus{}forward}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{parameters}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} END CODE HERE \PYZsh{}\PYZsh{}\PYZsh{}}
+                 
+                 \PY{c+c1}{\PYZsh{} Compute cost.}
+                 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} START CODE HERE \PYZsh{}\PYZsh{}\PYZsh{} (≈ 1 line of code)}
+                 \PY{n}{cost} \PY{o}{=} \PY{n}{compute\PYZus{}cost}\PY{p}{(}\PY{n}{AL}\PY{p}{,} \PY{n}{Y}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} END CODE HERE \PYZsh{}\PYZsh{}\PYZsh{}}
+             
+                 \PY{c+c1}{\PYZsh{} Backward propagation.}
+                 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} START CODE HERE \PYZsh{}\PYZsh{}\PYZsh{} (≈ 1 line of code)}
+                 \PY{n}{grads} \PY{o}{=} \PY{n}{L\PYZus{}model\PYZus{}backward}\PY{p}{(}\PY{n}{AL}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{caches}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} END CODE HERE \PYZsh{}\PYZsh{}\PYZsh{}}
+          
+                 \PY{c+c1}{\PYZsh{} Update parameters.}
+                 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} START CODE HERE \PYZsh{}\PYZsh{}\PYZsh{} (≈ 1 line of code)}
+                 \PY{n}{parameters} \PY{o}{=} \PY{n}{update\PYZus{}parameters}\PY{p}{(}\PY{n}{parameters}\PY{p}{,} \PY{n}{grads}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} END CODE HERE \PYZsh{}\PYZsh{}\PYZsh{}}
+                         
+                 \PY{c+c1}{\PYZsh{} Print the cost every 100 training example}
+                 \PY{k}{if} \PY{n}{print\PYZus{}cost} \PY{o+ow}{and} \PY{n}{i} \PY{o}{\PYZpc{}} \PY{l+m+mi}{100} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                     \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cost after iteration }\PY{l+s+si}{\PYZpc{}i}\PY{l+s+s2}{: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{cost}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{print\PYZus{}cost} \PY{o+ow}{and} \PY{n}{i} \PY{o}{\PYZpc{}} \PY{l+m+mi}{100} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                     \PY{n}{costs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{cost}\PY{p}{)}
+                     
+             \PY{c+c1}{\PYZsh{} plot the cost}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{squeeze}\PY{p}{(}\PY{n}{costs}\PY{p}{)}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{iterations (per tens)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Learning rate =}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{learning\PYZus{}rate}\PY{p}{)}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+             
+             \PY{k}{return} \PY{n}{parameters}
+\end{Verbatim}
+
+
+    You will now train the model as a 4-layer neural network.
+
+Run the cell below to train your model. The cost should decrease on
+every iteration. It may take up to 5 minutes to run 2500 iterations.
+Check if the "Cost after iteration 0" matches the expected output below,
+if not click on the square (⬛) on the upper bar of the notebook to stop
+the cell and try to find your error.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{parameters} \PY{o}{=} \PY{n}{L\PYZus{}layer\PYZus{}model}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{,} \PY{n}{train\PYZus{}y}\PY{p}{,} \PY{n}{layers\PYZus{}dims}\PY{p}{,} \PY{n}{num\PYZus{}iterations} \PY{o}{=} \PY{l+m+mi}{2500}\PY{p}{,} \PY{n}{print\PYZus{}cost} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Cost after iteration 0: 0.685518
+Cost after iteration 100: 0.470252
+Cost after iteration 200: 0.345030
+Cost after iteration 300: 0.300274
+Cost after iteration 400: 0.275424
+Cost after iteration 500: 0.249483
+Cost after iteration 600: 0.233072
+Cost after iteration 700: 0.206196
+Cost after iteration 800: 0.201200
+Cost after iteration 900: 0.222102
+Cost after iteration 1000: 0.131605
+Cost after iteration 1100: 0.102409
+Cost after iteration 1200: 0.077673
+Cost after iteration 1300: 0.086899
+Cost after iteration 1400: 0.063527
+Cost after iteration 1500: 0.054796
+Cost after iteration 1600: 0.055654
+Cost after iteration 1700: 0.064230
+Cost after iteration 1800: 0.041713
+Cost after iteration 1900: 0.039139
+Cost after iteration 2000: 0.038842
+Cost after iteration 2100: 0.032505
+Cost after iteration 2200: 0.028310
+Cost after iteration 2300: 0.025217
+Cost after iteration 2400: 0.023239
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{Expected Output}:
+
+\begin{verbatim}
+<tr>
+    <td> **Cost after iteration 0**</td>
+    <td> 0.771749 </td>
+</tr>
+<tr>
+    <td> **Cost after iteration 100**</td>
+    <td> 0.672053 </td>
+</tr>
+<tr>
+    <td> **...**</td>
+    <td> ... </td>
+</tr>
+<tr>
+    <td> **Cost after iteration 2400**</td>
+    <td> 0.092878 </td>
+</tr>
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{pred\PYZus{}train} \PY{o}{=} \PY{n}{predict}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{,} \PY{n}{train\PYZus{}y}\PY{p}{,} \PY{n}{parameters}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accuracy: 0.996296296296
+
+    \end{Verbatim}
+
+    \begin{verbatim}
+<tr>
+<td>
+**Train Accuracy**
+</td>
+<td>
+0.985645933014
+</td>
+</tr>
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{pred\PYZus{}test} \PY{o}{=} \PY{n}{predict}\PY{p}{(}\PY{n}{test\PYZus{}x}\PY{p}{,} \PY{n}{test\PYZus{}y}\PY{p}{,} \PY{n}{parameters}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accuracy: 0.95
+
+    \end{Verbatim}
+
+    \textbf{Expected Output}:
+
+\begin{verbatim}
+<tr>
+    <td> **Test Accuracy**</td>
+    <td> 0.8 </td>
+</tr>
+\end{verbatim}
+
+    Congrats! It seems that your 4-layer neural network has better
+performance (80\%) than your 2-layer neural network (72\%) on the same
+test set.
+
+This is good performance for this task. Nice job!
+
+Though in the next course on "Improving deep neural networks" you will
+learn how to obtain even higher accuracy by systematically searching for
+better hyperparameters (learning\_rate, layers\_dims, num\_iterations,
+and others you'll also learn in the next course).
+
+    \subsection{6) Results Analysis}\label{results-analysis}
+
+First, let's take a look at some images the L-layer model labeled
+incorrectly. This will show a few mislabeled images.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{print\PYZus{}mislabeled\PYZus{}images}\PY{p}{(}\PY{n}{classes}\PY{p}{,} \PY{n}{test\PYZus{}x}\PY{p}{,} \PY{n}{test\PYZus{}y}\PY{p}{,} \PY{n}{pred\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{A few types of images the model tends to do poorly on include:}
+- Cat body in an unusual position - Cat appears against a background of
+a similar color - Unusual cat color and species - Camera Angle -
+Brightness of the picture - Scale variation (cat is very large or small
+in image)
+
+    \textbf{References}:
+
+\begin{itemize}
+\tightlist
+\item
+  for auto-reloading external module:
+  http://stackoverflow.com/questions/1907993/autoreload-of-modules-in-ipython
+\end{itemize}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
