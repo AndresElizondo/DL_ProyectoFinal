@@ -84,7 +84,7 @@ def sigmoid_backward(dA, cache):
     return dZ
 
 
-def load_data():
+def load_data(elementos):
 	# Read h5 datasets file
 	data = h5py.File('datasets/data_complete.h5', "r")
 	
@@ -480,6 +480,6 @@ def print_mislabeled_images(classes, X, y, p):
         index = mislabeled_indices[1][i]
         
         plt.subplot(2, num_images, i + 1)
-        plt.imshow(X[:,index].reshape(256,256,3), interpolation='nearest')
+        plt.imshow(X[:,index].reshape(64,64,3), interpolation='nearest')
         plt.axis('off')
         plt.title("Prediction: " + classes[int(p[0,index])] + " \n Class: " + classes[y[0,index]])
