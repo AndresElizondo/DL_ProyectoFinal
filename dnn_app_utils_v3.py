@@ -103,14 +103,23 @@ def load_data():
 	# Generate a random shuffler
 	s = np.arange(data_x.shape[0])
 	np.random.shuffle(s)
-
+	
 	# Access datasets according to random shuffler, store in variable
 	shuffled_x = data_x[s]
 	shuffled_y = data_y[s]
 	
+	# Select a random subset of the dataset
+	numElements = 600
+	subSelector = np.arange(numElements)
+	np.random.shuffle(subSelector)
+
+	# Access datasets according to subset selector, store in variable
+	shuffled_x_subset = shuffled_x[subSelector]
+	shuffled_y_subset = shuffled_y[subSelector]
+	
 	# Split dataset (90% train_set / 10% test_set)
-	train_set_x_orig, test_set_x_orig = np.split(shuffled_x,[int(0.9 * len(shuffled_x))])
-	train_set_y_orig, test_set_y_orig = np.split(shuffled_y,[int(0.9 * len(shuffled_y))])
+	train_set_x_orig, test_set_x_orig = np.split(shuffled_x_subset,[int(0.9 * len(shuffled_x_subset))])
+	train_set_y_orig, test_set_y_orig = np.split(shuffled_y_subset,[int(0.9 * len(shuffled_y_subset))])
 	
 	# Generate required array of attribute classes
 	classes = np.array((['NORMAL','PNEUMONIA']))
