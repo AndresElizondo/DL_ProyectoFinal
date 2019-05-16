@@ -1,7 +1,6 @@
 *.h5
 datasets/*
-source_dataset/*
+sources/*
 *.zip
 .ipynb_checkpoints/
 __pycache__/
-small_dataset/*
