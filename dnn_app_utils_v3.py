@@ -87,68 +87,58 @@ def sigmoid_backward(dA, cache):
 def load_data(pixels, numElements, percentageTrain):
 	# Read h5 datasets file
 	data = h5py.File('datasets/data_complete_' + str(pixels) + '.h5', "r")
-	
 	# Read dataset for NORMAL attribute elements
 	data_x_norm = np.array(data["X_norm"],np.ubyte)
 	data_y_norm = np.array(data["Y_norm"],np.ubyte)
-	
 	# Read dataset for PNEUMONIA attribute elements
 	data_x_pneum = np.array(data["X_pneum"],np.ubyte)
 	data_y_pneum = np.array(data["Y_pneum"],np.ubyte)
-	
 	# Concatenate datasets for both attributes to make up the whole dataset
 	data_x = np.concatenate((data_x_norm,data_x_pneum), axis=0)
 	data_y = np.concatenate((data_y_norm,data_y_pneum), axis=0)
-	
 	# Generate a random shuffler
 	s = np.arange(data_x.shape[0])
 	np.random.shuffle(s)
-	
 	# Access datasets according to random shuffler, store in variable
 	shuffled_x = data_x[s]
 	shuffled_y = data_y[s]
-	
 	# Select a random subset of the dataset
 	subSelector = np.arange(numElements)
 	np.random.shuffle(subSelector)
-
 	# Access datasets according to subset selector, store in variable
 	shuffled_x_subset = shuffled_x[subSelector]
 	shuffled_y_subset = shuffled_y[subSelector]
 	
-	# Split dataset according to parameter 'percentageTrain'
-	train_set_x_orig, test_set_x_orig = np.split(shuffled_x_subset,[int(percentageTrain * len(shuffled_x_subset))])
-	train_set_y_orig, test_set_y_orig = np.split(shuffled_y_subset,[int(percentageTrain * len(shuffled_y_subset))])
+	# Generate a random shuffler
+	s2 = np.arange(data_x.shape[0]-numElements)
+	np.random.shuffle(s2)
+	# Access datasets according to random shuffler, store in variable
+	test_shuffled_x = data_x[s2]
+	test_shuffled_y = data_y[s2]
+	# Select a random subset of the dataset
+	subSelector2 = np.arange(data_x.shape[0]-numElements)
+	np.random.shuffle(subSelector2)
+	# Access datasets according to subset selector, store in variable
+	shuffled_x_subset_test = test_shuffled_x[subSelector2]
+	shuffled_y_subset_test = test_shuffled_y[subSelector2]
 	
+	# Split dataset according to parameter 'percentageTrain'
+	train_set_x_orig, dev_set_x_orig = np.split(shuffled_x_subset,[int(percentageTrain * len(shuffled_x_subset))])
+	train_set_y_orig, dev_set_y_orig = np.split(shuffled_y_subset,[int(percentageTrain * len(shuffled_y_subset))])
+	test_set_x_orig, basura1 = np.split(shuffled_x_subset_test,[int(0.1 * len(shuffled_x_subset_test))])
+	test_set_y_orig, basura2 = np.split(shuffled_y_subset_test,[int(0.1 * len(shuffled_y_subset_test))])
 	# Generate required array of attribute classes
 	classes = np.array((['NORMAL','PNEUMONIA']))
-	
 	# Close the h5 datasets file to free resources
 	data.close()
-	
-	# Flip that shite
+	# Transpose Y arrays
 	train_set_y_orig = train_set_y_orig.reshape((1, train_set_y_orig.shape[0]))
+	dev_set_y_orig = dev_set_y_orig.reshape((1, dev_set_y_orig.shape[0]))
 	test_set_y_orig = test_set_y_orig.reshape((1, test_set_y_orig.shape[0]))
 	
-	# Done
-	return train_set_x_orig, train_set_y_orig, test_set_x_orig, test_set_y_orig, classes
-	
-	#data_normal = h5py.File('datasets/data_normal.h5', "r")
-    # ~ train_dataset = h5py.File('datasets/train_catvnoncat.h5', "r")
-    # ~ train_set_x_orig = np.array(train_dataset["train_set_x"][:]) # your train set features
-    # ~ train_set_y_orig = np.array(train_dataset["train_set_y"][:]) # your train set labels
-
-	#data_pneumonia = h5py.File('datasets/data_pneumonia.h5', "r")
-    # ~ test_dataset = h5py.File('datasets/test_catvnoncat.h5', "r")
-    # ~ test_set_x_orig = np.array(test_dataset["test_set_x"][:]) # your test set features
-    # ~ test_set_y_orig = np.array(test_dataset["test_set_y"][:]) # your test set labels
-
-    # ~ classes = np.array(test_dataset["list_classes"][:]) # the list of classes
+	return train_set_x_orig, train_set_y_orig, dev_set_x_orig, dev_set_y_orig, test_set_x_orig, test_set_y_orig, classes
     
     
-    
-
-
 def initialize_parameters(n_x, n_h, n_y):
     """
     Argument:
